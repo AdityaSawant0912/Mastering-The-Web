@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/CSS/checkout.css">
+  <title>Simple Ecommerce Website</title>
+</head>
+<body>
+  <header>
+    <%- include('./partials/navbar.ejs') %>
+  </header>
+  <div class="container">
+    <div class="checkout-container">
+      <h2>Shopping Cart</h2>
+      <% let total = 0 %>
+      <% for( let i = 0; i < products.length; i++ ) { %> 
+      <% total += products[i].product_price; %>
+        
+      <div class="product-item">
+        <div class="product-name"><%= products[i].product_name %></div>
+        <div class="product-price"><%= products[i].product_price %> ₹</div>
+      </div>
+      <% } %>
+      <div class="total">
+        Total: <%= total %> ₹
+      <button class="buy-button" onclick="checkOut()">Checkout</button>
+      <button class="buy-button" onclick="clearCart()">Clear Cart</button>
+      </div>
+      
+    </div>
+  </div>
+  
+  <script>
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var cookies = document.cookie.split(";");
+        for (var i = 0; i < cookies.length; i++) {
+          var c = cookies[i];
+          while (c.charAt(0) == " ") c = c.substring(1, c.length);
+          if (c.indexOf(nameEQ) == 0)
+            return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+      }
+  
+    function clearCart() {
+        document.cookie =  'cart=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+    
+    function checkOut() {
+        let cart = eval(getCookie('cart'));
+        fetch( `/product/checkout`, {
+          credentials: "include",
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            cart: cart
+          })
+        })
+        .then( res => res.json() )
+        .then( data => {
+          if( data.message == 'Checkout success' ) {
+            clearCart();
+            alert( data.message );
+            window.location.href = '/';
+          }else {
+              console.log(data);
+            alert( data.message );
+          }
+        })
+    }
+    
+  </script>
+    <!-- <footer>
+    <a href="#">Terms of Service</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Contact Us</a>
+    <span>&copy; 2023 Your Simple Ecommerce Website</span>
+  </footer> -->
+  <%- include('./partials/footer.ejs') %>
+</body>
+</html>

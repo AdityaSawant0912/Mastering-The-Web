@@ -1,0 +1,15 @@
+<nav>
+  <a href="/">Home</a>
+  <a href="/product">Products</a>
+  <% if(!user) { %>
+  <a href="/login">Login</a>
+  <a href="/signup">Signup</a>
+  <% } %> 
+  <% if(user && user.role == 'seller') { %>
+  <a href="/product/create">Create Product</a>
+  <% } %> 
+  <% if(user) { %>
+  <a href="/product/checkout">Checkout</a>
+  <a href="/logout">Logout</a>
+  <% } %>
+</nav>

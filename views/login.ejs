@@ -1,0 +1,29 @@
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/CSS/login.css">
+  <title>Simple Ecommerce Website</title>
+</head>
+<body>
+  <header>
+    <%- include('./partials/navbar.ejs') %>
+  </header>
+  <div class="container">
+    <div class="login-form">
+      <h2>Login to Your Account</h2>
+      <form action="/login" method="post">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        
+        <input type="submit" value="Login">
+      </form>
+    </div>
+  </div>
+ <%- include('./partials/footer.ejs') %>
+</body>
+</html>

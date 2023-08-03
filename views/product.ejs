@@ -1,0 +1,93 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/CSS/product.css" />
+    <title>Simple Ecommerce Website</title>
+  </head>
+  <body>
+    <header>
+      <%- include('./partials/navbar.ejs') %>
+    </header>
+    <div class="container">
+      <% for( let i = 0; i < products.length; i++ ) { %>
+      <div class="product-container">
+        <a
+          href="/product/<%= products[i].product_id %>"
+          style="text-decoration: none; color: black"
+        >
+          <img
+            class="product-image"
+            src="<%= products[i].product_image_link %>"
+            alt="Product 1"
+          />
+          <div class="product-details">
+            <div class="product-name"><%= products[i].product_name %></div>
+            <div class="product-price"><%= products[i].product_price %> ₹</div>
+            <div class="product-description">
+              <%= products[i].product_description %>
+            </div>
+            <% if (products[i].product_qty == '0') { %> 
+            <div class="product-description">
+              Product is Out of Stock
+            </div>
+            <% } %>
+          </div>
+        </a>
+        <% if (products[i].product_qty != '0') { %> 
+        <button
+          class="buy-button"
+          onclick="addToCart('<%= products[i].product_id %>')"
+        >
+          Add to Cart
+        </button>
+        <% } %>
+        <% if (user && user.role == 'seller' && user.id == products[i].product_owner ) { %> 
+        <a
+          class="buy-button"
+          href="/product/edit/<%= products[i].product_id %>"
+          style="text-decoration: none; color: white"
+        >
+          Edit
+        </a>
+        <% } %>
+      </div>
+
+      <% } %>
+    </div>
+
+    <script>
+      function getCookie(name) {
+        var nameEQ = name + "=";
+        var cookies = document.cookie.split(";");
+        for (var i = 0; i < cookies.length; i++) {
+          var c = cookies[i];
+          while (c.charAt(0) == " ") c = c.substring(1, c.length);
+          if (c.indexOf(nameEQ) == 0)
+            return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+      }
+
+      function addToCart(id) {
+        // store id to cookie
+        console.log(getCookie("cart"));
+        if (document.cookie.indexOf("cart") >= 0) {
+          let cart = JSON.parse(getCookie("cart"));
+          if (cart.indexOf(id) >= 0) {
+            alert("Product already in cart");
+            return;
+          } else {
+            cart.push(id);
+          }
+          document.cookie = "cart=" + JSON.stringify(cart);
+        } else {
+          let cart = [];
+          cart.push(id);
+          document.cookie = "cart=" + JSON.stringify(cart);
+        }
+      }
+    </script>
+    <%- include('./partials/footer.ejs') %>
+  </body>
+</html>

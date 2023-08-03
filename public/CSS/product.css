@@ -1,0 +1,82 @@
+ body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+    nav a:first-child {
+      margin-left: 0;
+    }
+    .container {
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: grid; /* Use grid layout */
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Two products per row with a minimum of 250px */
+      grid-gap: 30px; /* Gap between the products */
+    }
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+    footer a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    .product-container {
+      width: 100%; /* Set the width for each product container to 100% of the grid cell */
+      border: 1px solid #ccc;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .product-image {
+      width: 150px; /* Set the width for the product image */
+      height: 150px; /* Set the height for the product image */
+      margin-bottom: 10px;
+    }
+    .product-details {
+      text-align: center;
+    }
+    .product-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .product-price {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+    .product-description {
+      margin-bottom: 10px;
+    }
+    .buy-button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }

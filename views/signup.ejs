@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/CSS/signup.css">
+  <title>Simple Ecommerce Website</title>
+</head>
+<body>
+  <header>
+   <%- include('./partials/navbar.ejs') %>
+  </header>
+  <div class="container">
+    <div class="login-form">
+      <h2>Create an Account</h2>
+      <form action="/signup" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
+        
+       <label for="role">Choose Account Type:</label>
+        <select id="role" name="role" required>
+          <option value="buyer">Buyer</option>
+          <option value="seller">Seller</option>
+        </select>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        
+
+        
+        <input type="submit" value="Signup">
+      </form>
+    </div>
+  </div>
+<%- include('./partials/footer.ejs') %>
+</body>
+</html>

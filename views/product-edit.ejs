@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/CSS/create.css">
+  <title>Simple Ecommerce Website</title>
+</head>
+<body>
+  <header>
+   <%- include('./partials/navbar.ejs') %>
+  </header>
+  <div class="container">
+    <div class="product-form">
+      <h2>Edit Product</h2>
+      <form action="/product/edit/<%= product.product_id %>" method="post">
+        
+        <label for="name">Product Name:</label>
+        <input type="text" id="name" name="name" value="<%= product.product_name %>" required>
+        
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" step="0.01" value="<%= product.product_price %>" required>
+        
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="4"  required><%= product.product_description %></textarea>
+        
+        <label for="qty">Quantity:</label>
+        <input type="number" id="qty" name="qty" step="1" value="<%= product.product_qty %>" required>
+        
+        <label for="image_link">Product Image:</label>
+        <input type="url" id="image_link" name="image_link" value="<%= product.product_image_link %>" required>
+        
+        <input type="submit" value="Edit Product">
+        <button type="button" onclick="onDelete()">Delete</button>
+      </form>
+      
+    </div>
+  </div>
+  <script>
+     function onDelete() {
+        let id = '<%= product.product_id %>';
+        console.log(id);
+        fetch( `/product/${id}`, {
+          credentials: "include",
+          method: 'DELETE'
+        })
+        .then( res => res.json() )
+        .then( data => {
+          if( data.status == '200' ) {
+            window.location.href = '/';
+          }else {
+            alert( data.message );
+          }
+        })
+    }
+  </script>
+  
+ <%- include('./partials/footer.ejs') %>
+</body>
+</html>
