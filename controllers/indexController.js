@@ -1,4 +1,6 @@
 exports.getIndex = (req, res) => {
+    user = null
     if(req.session)
-        res.status(200).render('home', {user: req.session.user})
+        user = req.session.user
+    res.status(200).render('home', {user})
 }
